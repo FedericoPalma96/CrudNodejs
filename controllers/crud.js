@@ -1,0 +1,25 @@
+const conexion = require('../database/db');
+exports.save=(req,res)=>{
+    const user = req.body.user;
+    const roll = req.body.roll;
+    conexion.query('INSERT INTO users SET ?',{user:user,roll:roll},(error,results)=>{
+        if (error){
+            console.log(error);
+        }else{
+            res.redirect('/')
+        }
+    })
+}
+exports.update = (req,res)=>{
+    const id = req.body.id;
+    const user = req.body.user;
+    const roll = req.body.roll;
+    conexion.query('UPDATE users SET ? WHERE id = ? ', [{user:user, roll:roll},id],(error,results)=>{
+    if (error){
+        console.log(error);
+    }else{
+        console.log(user,roll,id)
+        res.redirect('/');
+    }
+})
+}
